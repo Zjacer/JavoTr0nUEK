@@ -13,7 +13,7 @@ import javax.swing.JTextArea;
 /**
  * @author Mateusz Zając @ zjacer@gmail.com
  */
-public class Server extends JFrame {
+public class GameServer extends JFrame {
     
     private JPanel contentPane;
     public JButton buttonStart;
@@ -24,7 +24,7 @@ public class Server extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    Server window = new Server();
+                    GameServer window = new GameServer();
                     window.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -33,7 +33,7 @@ public class Server extends JFrame {
         });
     }
 
-    public Server() {
+    public GameServer() {
         
         setTitle("JavoTr0n Server");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
