@@ -1,6 +1,7 @@
 package com.zjacer.javotr0n.server;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 
 /**
  * @author Mateusz Zając @ zjacer@gmail.com
@@ -18,7 +20,7 @@ public class GameServer extends JFrame {
     private JPanel contentPane;
     public JButton buttonStart;
     public JButton buttonStop;
-    public JTextArea textArea;
+    public JTextPane textArea;
     private ServerHandler handler;
     
     public static void main(String[] args) {
@@ -72,7 +74,9 @@ public class GameServer extends JFrame {
         JScrollPane scrollPane = new JScrollPane();
         contentPane.add(scrollPane, BorderLayout.CENTER);
         
-        textArea = new JTextArea();
+        textArea = new JTextPane();
+        textArea.setBackground(Color.BLACK);
+        textArea.setForeground(Color.WHITE);
         textArea.setText("Welcome in JavoTr0n server client!");
         textArea.setEnabled(false);
         textArea.setEditable(false);
