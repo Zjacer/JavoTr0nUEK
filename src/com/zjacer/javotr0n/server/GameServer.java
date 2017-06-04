@@ -73,6 +73,7 @@ public class GameServer extends JFrame {
         contentPane.add(scrollPane, BorderLayout.CENTER);
         
         textArea = new JTextArea();
+        textArea.setText("Welcome in JavoTr0n server client!");
         textArea.setEnabled(false);
         textArea.setEditable(false);
         scrollPane.setViewportView(textArea);
