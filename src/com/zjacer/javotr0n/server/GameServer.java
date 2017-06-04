@@ -19,9 +19,11 @@ public class GameServer extends JFrame {
     public JButton buttonStart;
     public JButton buttonStop;
     public JTextArea textArea;
+    private ServerHandler handler;
     
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 try {
                     GameServer window = new GameServer();
@@ -48,18 +50,17 @@ public class GameServer extends JFrame {
         contentPane.add(panel, BorderLayout.NORTH);
        
         buttonStart.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                textArea.setText(textArea.getText() + "\nServer is running.");
-                buttonStart.setEnabled(false);
-                buttonStop.setEnabled(true);
+                handler = new ServerHandler(GameServer.this);
+                handler.start();
             }
         });
   
         buttonStop.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                textArea.setText(textArea.getText() + "\nServer is offline.");
-                buttonStart.setEnabled(true);
-                buttonStop.setEnabled(false);
+                handler.stop();
             }
         });
         
@@ -70,10 +71,19 @@ public class GameServer extends JFrame {
 
         JScrollPane scrollPane = new JScrollPane();
         contentPane.add(scrollPane, BorderLayout.CENTER);
+        
         textArea = new JTextArea();
-        textArea.setText("Server offline.");
         textArea.setEnabled(false);
         textArea.setEditable(false);
         scrollPane.setViewportView(textArea);
+    }
+    
+    void switchButtonsState() {
+        buttonStart.setEnabled(!buttonStart.isEnabled());
+        buttonStop.setEnabled(!buttonStop.isEnabled());
+    }
+
+    void printInformation(String text) {
+        textArea.setText(textArea.getText() + "\n" + text);
     }
 }

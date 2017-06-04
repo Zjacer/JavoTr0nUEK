@@ -11,7 +11,8 @@ public class Game {
     // full hd divided by 4
     private final int WIDTH = 480;
     private final int HEIGHT = 270;
-    private final int gameBoard[][] = new int[WIDTH][HEIGHT];
+    private final int arena[][] = new int[WIDTH][HEIGHT];
     private ArrayList<?> players = new ArrayList<>();
+    private static int playerId = 0;
     
 }
