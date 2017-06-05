@@ -9,7 +9,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 
 /**
@@ -40,6 +39,7 @@ public class GameServer extends JFrame {
     public GameServer() {
         
         setTitle("JavoTr0n Server");
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 400, 400);
         buttonStart = new JButton("Start");
