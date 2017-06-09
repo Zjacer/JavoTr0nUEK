@@ -15,4 +15,16 @@ public class Game {
     private ArrayList<?> players = new ArrayList<>();
     private static int playerId = 0;
     
+    
+    public Game() {
+    
+    }
+    
+    public void updateGame() {
+    
+    }
+    
+    private void checkBorderCollision() {
+        
+    }
 }
