@@ -44,12 +44,16 @@ public class ServerHandler {
                     SomeRequest request = (SomeRequest)object;
                     System.out.println(request.text);
 
-                    SomeResponse response = new SomeResponse();
-                    response.text = "Thanks";
-                    connection.sendTCP(response);
+                    respond("Welcomeeee! :)", connection);
                 }
             }
         });
+    }
+    
+    private void respond(String text, Connection connection) {
+        SomeResponse response = new SomeResponse();
+        response.text = text;
+        connection.sendTCP(response);
     }
     
     public void stop() { 

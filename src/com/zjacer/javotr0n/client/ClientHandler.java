@@ -29,13 +29,13 @@ public class ClientHandler {
         kryo.register(SomeRequest.class);
         kryo.register(SomeResponse.class);
         
-        // LAN server discovery
+        // LAN server discovery - 6771 is opened in my home
         InetAddress address = client.discoverHost(54777, 5000);
-        
+        System.out.println(address.toString());
         if(address == null) {
             JOptionPane.showMessageDialog(gameClient,
-                "Server not found! You can try to type server's IP address manually.",
-                "Inane error",
+                "JavoTr0n Game Server not found!",
+                "Connection Error",
                 JOptionPane.ERROR_MESSAGE);
             stop();
         }
@@ -43,6 +43,7 @@ public class ClientHandler {
         try {
             gameClient.getIpTextArea().setText("Server IP address: " + address.toString());
             client.connect(5000, address, 54555, 54777);
+            request("Player connected!");
         } catch (IOException ex) {
             System.out.println("No server!");
         }
@@ -58,6 +59,12 @@ public class ClientHandler {
         });
     }
 
+    private void request(String text) {
+        SomeRequest request = new SomeRequest();
+        request.text = text;
+        client.sendTCP(request);
+    }
+    
     public void stop() {
         client.close();
         client.stop();
