@@ -16,10 +16,10 @@ import javax.swing.JTextArea;
 public class GameClient extends JFrame {
 
     private JPanel contentPane;
-    public ClientHandler handler;
-    private JButton readyButton;
-    private JButton notReadyButton;
-    private JLabel ipTextArea;
+    private ClientHandler handler;
+    private JLabel ipTextArea, labelTCP, labelUDP;
+    private JTextArea portUDP, portTCP;
+    private JButton connectButton, readyButton, notReadyButton;
     
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -40,9 +40,14 @@ public class GameClient extends JFrame {
         setTitle("JavoTr0n Client");
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 600, 600);
+        setBounds(100, 100, 800, 600);
+        connectButton = new JButton("CONNECT");
         readyButton = new JButton("READY");
         notReadyButton = new JButton("NOT READY");
+        labelTCP = new JLabel("TCP: ");
+        labelUDP = new JLabel("UDP: ");
+        portTCP = new JTextArea("54555", 1, 4);
+        portUDP = new JTextArea("54777", 1, 4);
         ipTextArea = new JLabel("Server not found.");
         contentPane = new JPanel();
         contentPane.setLayout(new BorderLayout());
@@ -50,14 +55,25 @@ public class GameClient extends JFrame {
         
         JPanel panel = new JPanel();
         contentPane.add(panel, BorderLayout.NORTH);
-        
+
+        connectButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handler = new ClientHandler(GameClient.this, 
+                                            Integer.parseInt(portTCP.getText()), 
+                                            Integer.parseInt(portUDP.getText())
+                );
+                handler.start();
+            }
+        });
+  
         readyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 switchButtonsState();
             }
         });
-  
+        
         notReadyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -67,12 +83,14 @@ public class GameClient extends JFrame {
         
         notReadyButton.setEnabled(false);
         
+        panel.add(connectButton);
         panel.add(readyButton);
         panel.add(notReadyButton);
+        panel.add(labelTCP);
+        panel.add(portTCP);
+        panel.add(labelUDP);
+        panel.add(portUDP);
         panel.add(ipTextArea);
-        
-        handler = new ClientHandler(this);
-        handler.start();
     }
     
     public void switchButtonsState() {

@@ -16,10 +16,14 @@ import javax.swing.JOptionPane;
 public class ClientHandler {
 
     private GameClient gameClient;
-    Client client = new Client(54555, 54777);
-
-    public ClientHandler(GameClient gameClient) {
+    private Client client;
+    private int portTCP, portUDP;
+    
+    public ClientHandler(GameClient gameClient, int portTCP, int portUDP) {
+        this.client = new Client(portTCP, portUDP);
         this.gameClient = gameClient;
+        this.portTCP = portTCP;
+        this.portUDP = portUDP;
     }
 
     public void start() {
@@ -28,26 +32,31 @@ public class ClientHandler {
         Kryo kryo = client.getKryo();
         kryo.register(SomeRequest.class);
         kryo.register(SomeResponse.class);
+
+        InetAddress address = client.discoverHost(portTCP, 5000);
         
-        // LAN server discovery - 6771 is opened in my home
-        InetAddress address = client.discoverHost(54777, 5000);
-        System.out.println(address.toString());
-        if(address == null) {
+        if(address != null) {
+            try {
+                System.out.println(portTCP + " " + portUDP);
+                gameClient.getIpTextArea().setText("Server IP address: "+ address.toString());
+                client.connect(5000, address, portTCP, portUDP);
+                request("Player connected!");
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(gameClient,
+                    "Couldn't connect to server on IP address: " + address.toString() +
+                    "\nCheck if ports are opened!",
+                    "Connection Error!",
+                    JOptionPane.ERROR_MESSAGE);
+                stop();
+            }
+        } else {
             JOptionPane.showMessageDialog(gameClient,
-                "JavoTr0n Game Server not found!",
-                "Connection Error",
+                "JavoTr0n Game Server not found on LAN Network!",
+                "Server not found!",
                 JOptionPane.ERROR_MESSAGE);
             stop();
         }
-     
-        try {
-            gameClient.getIpTextArea().setText("Server IP address: " + address.toString());
-            client.connect(5000, address, 54555, 54777);
-            request("Player connected!");
-        } catch (IOException ex) {
-            System.out.println("No server!");
-        }
-                  
+          
         client.addListener(new Listener() {
             @Override
             public void received (Connection connection, Object object) {

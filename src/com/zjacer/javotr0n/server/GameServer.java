@@ -7,8 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 
 /**
@@ -17,9 +19,10 @@ import javax.swing.JTextPane;
 public class GameServer extends JFrame {
     
     private JPanel contentPane;
-    public JButton buttonStart;
-    public JButton buttonStop;
-    public JTextPane textArea;
+    private JButton buttonStart, buttonStop;
+    private JLabel labelTCP, labelUDP;
+    private JTextArea portUDP, portTCP;
+    private JTextPane textArea;
     private ServerHandler handler;
     
     public static void main(String[] args) {
@@ -44,6 +47,10 @@ public class GameServer extends JFrame {
         setBounds(100, 100, 400, 400);
         buttonStart = new JButton("Start");
         buttonStop = new JButton("Stop");
+        labelTCP = new JLabel("TCP: ");
+        labelUDP = new JLabel("UDP: ");
+        portTCP = new JTextArea("54555", 1, 4);
+        portUDP = new JTextArea("54777", 1, 4);
         contentPane = new JPanel();
         contentPane.setLayout(new BorderLayout());
         setContentPane(contentPane);
@@ -54,7 +61,10 @@ public class GameServer extends JFrame {
         buttonStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                handler = new ServerHandler(GameServer.this);
+                handler = new ServerHandler(GameServer.this, 
+                                            Integer.parseInt(portTCP.getText()), 
+                                            Integer.parseInt(portUDP.getText())
+                );
                 handler.start();
             }
         });
@@ -70,6 +80,11 @@ public class GameServer extends JFrame {
                 
         panel.add(buttonStart);
         panel.add(buttonStop);
+        panel.add(labelTCP);
+        panel.add(portTCP);
+        panel.add(labelUDP);
+        panel.add(portUDP);
+
 
         JScrollPane scrollPane = new JScrollPane();
         contentPane.add(scrollPane, BorderLayout.CENTER);

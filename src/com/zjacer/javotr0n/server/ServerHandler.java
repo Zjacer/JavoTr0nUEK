@@ -14,9 +14,13 @@ public class ServerHandler {
 
     private GameServer gameServer;
     private Server server; // KryoNet server
-
-    public ServerHandler(GameServer gameServer) {
+    private int portTCP, portUDP;
+    
+    public ServerHandler(GameServer gameServer, int portTCP, int portUDP) {
         this.gameServer = gameServer;
+        
+        this.portTCP = portTCP;
+        this.portUDP = portUDP;
     }
     
     public void start() { 
@@ -25,9 +29,11 @@ public class ServerHandler {
         server.start();
         
         try {
-            server.bind(54555, 54777);
+            //System.out.println(portTCP + " " + portUDP);
+            server.bind(portTCP, portUDP);
             gameServer.switchButtonsState();
-            gameServer.printInformation("Server started!");
+            gameServer.printInformation("Server started on TCP port: " 
+                                        + portTCP + " UDP port: " + portUDP);
 
             Kryo kryo = server.getKryo();
             kryo.register(SomeRequest.class);
