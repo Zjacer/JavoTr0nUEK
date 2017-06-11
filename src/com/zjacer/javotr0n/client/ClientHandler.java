@@ -33,7 +33,7 @@ public class ClientHandler {
         kryo.register(SomeRequest.class);
         kryo.register(SomeResponse.class);
 
-        InetAddress address = client.discoverHost(portTCP, 5000);
+        InetAddress address = client.discoverHost(portUDP, 5000);
         
         if(address != null) {
             try {
