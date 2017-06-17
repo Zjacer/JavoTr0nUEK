@@ -7,24 +7,35 @@ import java.util.ArrayList;
  */
 // game logic will be on server side
 public class Game {
-    
+
     // full hd divided by 4
-    private final int WIDTH = 480;
-    private final int HEIGHT = 270;
-    private final int arena[][] = new int[WIDTH][HEIGHT];
-    private ArrayList<?> players = new ArrayList<>();
-    private static int playerId = 0;
-    
-    
+    public final static int WIDTH = 480;
+    public final static int HEIGHT = 270;
+    public final int arena[][] = new int[WIDTH][HEIGHT];
+    public ArrayList<Lightcycle> players = new ArrayList<>();
+
     public Game() {
-    
+        
     }
     
     public void updateGame() {
-    
+        move();
+        checkBorderCollision();
     }
     
+    private void move() {
+        
+    }
+
     private void checkBorderCollision() {
         
+    }
+    
+    public static int getGameBoardWidth() {
+        return WIDTH;
+    }
+
+    public static int getGameBoardHeight() {
+        return HEIGHT;
     }
 }

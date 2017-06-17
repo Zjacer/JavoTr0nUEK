@@ -20,27 +20,14 @@ public class GameClient extends JFrame {
     private JLabel ipTextArea, labelTCP, labelUDP;
     private JTextArea portUDP, portTCP;
     private JButton connectButton, readyButton, notReadyButton;
-    
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    GameClient window = new GameClient();
-                    window.setVisible(true);
-                } catch (Exception e) {
-                    // logic here
-                }
-            }
-        });
-    }
+    private GameBoard gameBoard;
 
     public GameClient() {
         
         setTitle("JavoTr0n Client");
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 800, 600);
+        setBounds(100, 100, 1000, 700);
         connectButton = new JButton("CONNECT");
         readyButton = new JButton("READY");
         notReadyButton = new JButton("NOT READY");
@@ -48,7 +35,7 @@ public class GameClient extends JFrame {
         labelUDP = new JLabel("UDP: ");
         portTCP = new JTextArea("54555", 1, 4);
         portUDP = new JTextArea("54777", 1, 4);
-        ipTextArea = new JLabel("Server not found.");
+        ipTextArea = new JLabel("Not connected.");
         contentPane = new JPanel();
         contentPane.setLayout(new BorderLayout());
         setContentPane(contentPane);
@@ -91,6 +78,9 @@ public class GameClient extends JFrame {
         panel.add(labelUDP);
         panel.add(portUDP);
         panel.add(ipTextArea);
+        
+        gameBoard = new GameBoard();
+        contentPane.add(gameBoard, BorderLayout.CENTER);
     }
     
     public void switchButtonsState() {
@@ -100,5 +90,19 @@ public class GameClient extends JFrame {
     
     public JLabel getIpTextArea() {
         return ipTextArea;
+    }
+    
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    GameClient window = new GameClient();
+                    window.setVisible(true);
+                } catch (Exception e) {
+                    // logic here
+                }
+            }
+        });
     }
 }
