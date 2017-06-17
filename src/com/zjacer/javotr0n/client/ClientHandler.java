@@ -43,6 +43,7 @@ public class ClientHandler implements KeyListener {
                 System.out.println(portTCP + " " + portUDP);
                 gameClient.getIpTextArea().setText("Server IP address: "+ address.toString());
                 client.connect(5000, address, portTCP, portUDP);
+                gameClient.changeColorAndReadyButtonStatus();
                 request("Player connected!");
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(gameClient,

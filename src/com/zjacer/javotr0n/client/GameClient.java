@@ -55,7 +55,6 @@ public class GameClient extends JFrame {
                                             Integer.parseInt(portUDP.getText())
                 );
                 handler.start();
-                readyButton.setEnabled(true);
             }
         });
         
@@ -109,7 +108,12 @@ public class GameClient extends JFrame {
     public JLabel getIpTextArea() {
         return ipTextArea;
     }
-        
+
+    public void changeColorAndReadyButtonStatus() { 
+        colorChooserButton.setEnabled(false);
+        readyButton.setEnabled(true);
+    }
+    
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             @Override
