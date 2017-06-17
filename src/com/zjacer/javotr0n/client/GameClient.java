@@ -1,10 +1,12 @@
 package com.zjacer.javotr0n.client;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,16 +21,18 @@ public class GameClient extends JFrame {
     private ClientHandler handler;
     private JLabel ipTextArea, labelTCP, labelUDP;
     private JTextArea portUDP, portTCP;
-    private JButton connectButton, readyButton, notReadyButton;
+    private JButton connectButton, readyButton, notReadyButton, colorChooserButton;
     private GameBoard gameBoard;
-
+    private Color playerColor = null;
+    
     public GameClient() {
-        
+
         setTitle("JavoTr0n Client");
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1000, 700);
         connectButton = new JButton("CONNECT");
+        colorChooserButton = new JButton("PICK LIGHTCYCLE COLOR");
         readyButton = new JButton("READY");
         notReadyButton = new JButton("NOT READY");
         labelTCP = new JLabel("TCP: ");
@@ -39,7 +43,7 @@ public class GameClient extends JFrame {
         contentPane = new JPanel();
         contentPane.setLayout(new BorderLayout());
         setContentPane(contentPane);
-        
+
         JPanel panel = new JPanel();
         contentPane.add(panel, BorderLayout.NORTH);
 
@@ -51,9 +55,10 @@ public class GameClient extends JFrame {
                                             Integer.parseInt(portUDP.getText())
                 );
                 handler.start();
+                readyButton.setEnabled(true);
             }
         });
-  
+        
         readyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -68,8 +73,21 @@ public class GameClient extends JFrame {
             }
         });
         
+        colorChooserButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                playerColor = JColorChooser.showDialog(null, "Pick your Lightcycle color", null);
+                
+                if(playerColor != null)
+                    connectButton.setEnabled(true);
+            }
+        });
+        
+        connectButton.setEnabled(false);
+        readyButton.setEnabled(false);
         notReadyButton.setEnabled(false);
         
+        panel.add(colorChooserButton);
         panel.add(connectButton);
         panel.add(readyButton);
         panel.add(notReadyButton);
@@ -79,7 +97,7 @@ public class GameClient extends JFrame {
         panel.add(portUDP);
         panel.add(ipTextArea);
         
-        gameBoard = new GameBoard();
+        gameBoard = new GameBoard(playerColor);
         contentPane.add(gameBoard, BorderLayout.CENTER);
     }
     
@@ -91,7 +109,7 @@ public class GameClient extends JFrame {
     public JLabel getIpTextArea() {
         return ipTextArea;
     }
-    
+        
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             @Override

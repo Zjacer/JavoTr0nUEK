@@ -18,12 +18,13 @@ public class GameBoard extends JPanel {
     private static final Color BLOCKCOLOR = Color.WHITE;
     private int[][] arena = new int[WIDTH][HEIGHT];
     private int myID = 123123;
-    private Color myColor = Color.WHITE;
+    private Color myColor;
     private HashMap<Integer, Color> otherColor = new HashMap<>();
 
-    public GameBoard() {
+    public GameBoard(Color playerColor) {
         setBackground(Color.WHITE);
         setPreferredSize(new Dimension(WIDTH*SIZE, HEIGHT*SIZE));
+        myColor = playerColor;
     }
 
     @Override
