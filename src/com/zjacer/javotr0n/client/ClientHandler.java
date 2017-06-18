@@ -19,8 +19,8 @@ public class ClientHandler implements KeyListener {
 
     private GameClient gameClient;
     private Client client;
-    private int portTCP, portUDP;
-    private boolean isPlaying = false;
+    private int portTCP, portUDP, id = 0;
+    private boolean inGame = false;
     
     public ClientHandler(GameClient gameClient, int portTCP, int portUDP) {
         this.client = new Client(portTCP, portUDP);
@@ -28,7 +28,7 @@ public class ClientHandler implements KeyListener {
         this.portTCP = portTCP;
         this.portUDP = portUDP;
     }
-
+    
     public void start() {
 
         client.start();
@@ -66,10 +66,12 @@ public class ClientHandler implements KeyListener {
             public void received (Connection connection, Object object) {
                 if (object instanceof SomeResponse) {
                     SomeResponse response = (SomeResponse)object;
-                    System.out.println(response.text);
+                    handleResponse(connection, response.text);
                 }
             }
         });
+        
+        gameClient.addKeyListener(this);
     }
 
     private void request(String text) {
@@ -83,41 +85,49 @@ public class ClientHandler implements KeyListener {
         client.stop();
     }
  
+    private void handleResponse(Connection connection, String text) {
+
+    }
+    
     @Override
     public void keyPressed(KeyEvent e) {
- 
+        System.out.println("KEY PRESSED!!!!!!!!!!!!!");
         int key = e.getKeyCode();
-        String direction = "";
+        int direction = -1;
  
         switch (key) {
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
-                direction = "RIGHT";
+                direction = 0;
                 break;
             case KeyEvent.VK_UP:
             case KeyEvent.VK_W:
-                direction = "UP";
+                direction = 1;
                 break;
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:
-                direction = "LEFT";
+                direction = 2;
                 break;
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
-                direction = "DOWN";
+                direction = 3;
                 break;
             default:
                 break;
+        }
+        
+        if (direction != -1 && inGame) {
+            request("direction;" + String.valueOf(id) + ";" + String.valueOf(direction));
         }
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 }
