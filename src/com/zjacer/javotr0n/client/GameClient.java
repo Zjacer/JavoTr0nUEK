@@ -26,7 +26,7 @@ public class GameClient extends JFrame {
     private Color playerColor = null;
     
     public GameClient() {
-
+        
         setTitle("JavoTr0n Client");
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,7 +43,8 @@ public class GameClient extends JFrame {
         contentPane = new JPanel();
         contentPane.setLayout(new BorderLayout());
         setContentPane(contentPane);
-
+        JPanel gamePanel = new JPanel();
+        
         JPanel panel = new JPanel();
         contentPane.add(panel, BorderLayout.NORTH);
 
@@ -85,6 +86,14 @@ public class GameClient extends JFrame {
         connectButton.setEnabled(false);
         readyButton.setEnabled(false);
         notReadyButton.setEnabled(false);
+       
+        // it wont interrupt keylistener anymore
+        colorChooserButton.setFocusable(false);
+        connectButton.setFocusable(false);
+        readyButton.setFocusable(false);
+        notReadyButton.setFocusable(false);
+        portTCP.setFocusable(false);
+        portUDP.setFocusable(false);
         
         panel.add(colorChooserButton);
         panel.add(connectButton);
@@ -98,6 +107,11 @@ public class GameClient extends JFrame {
         
         gameBoard = new GameBoard(playerColor);
         contentPane.add(gameBoard, BorderLayout.CENTER);
+        pack();
+    }
+    
+    public GameBoard getGameBoard() {
+        return gameBoard;
     }
     
     public void switchButtonsState() {
