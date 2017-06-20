@@ -62,6 +62,7 @@ public class GameClient extends JFrame {
         readyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                handler.informServerAboutReadyStatus(true);
                 switchButtonsState();
             }
         });
@@ -69,6 +70,7 @@ public class GameClient extends JFrame {
         notReadyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                handler.informServerAboutReadyStatus(false);
                 switchButtonsState();
             }
         });
