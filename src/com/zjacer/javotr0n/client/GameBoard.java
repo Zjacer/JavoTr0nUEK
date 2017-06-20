@@ -17,22 +17,13 @@ public class GameBoard extends JPanel {
     private static final Color BGCOLOR = Color.BLACK;
     private static final Color BLOCKCOLOR = Color.WHITE;
     private int[][] arena = new int[WIDTH][HEIGHT];
-    int myID = 123123;
-    Color myColor = Color.RED;
+    int myID = 999; // for client board purpose
+    Color myColor = Color.RED; // default is RED
     HashMap<Integer, Color> otherColor = new HashMap<>();
-
-    public GameBoard(Color playerColor) {
-        setBackground(Color.WHITE);
-        setPreferredSize(new Dimension(WIDTH*SIZE, HEIGHT*SIZE));
-        //myColor = playerColor;
-        myColor = Color.RED;
-    }
     
     public GameBoard() {
         setBackground(Color.WHITE);
         setPreferredSize(new Dimension(WIDTH*SIZE, HEIGHT*SIZE));
-        //myColor = playerColor;
-        myColor = Color.RED;
     }
 
     @Override
@@ -60,5 +51,9 @@ public class GameBoard extends JPanel {
 
     void setArena(int[][] arena) {
         this.arena = arena;
+    }
+    
+    void setPlayerColor(Color playerColor) {
+        myColor = playerColor;
     }
 }

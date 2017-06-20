@@ -3,7 +3,7 @@ package com.zjacer.javotr0n.server;
 import java.util.ArrayList;
 
 /**
- * @author Mateusz ZajÄ…c @ zjacer@gmail.com
+ * @author Mateusz Zając @ zjacer@gmail.com
  */
 public class Lightcycle {
 
@@ -78,7 +78,7 @@ public class Lightcycle {
     }
     
     void setDirection(int i) {
-        this.direction = i;
+        direction = i;
     }
     
     void increaseTrailSize() {
