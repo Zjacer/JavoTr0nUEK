@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class Game {
 
     // full hd divided by 4
-    public final static int WIDTH = 480;
-    public final static int HEIGHT = 270;
+    public final static int WIDTH = 64;
+    public final static int HEIGHT = 32;
     public final int arena[][] = new int[WIDTH][HEIGHT];
     public ArrayList<Lightcycle> players = new ArrayList<>();
 
