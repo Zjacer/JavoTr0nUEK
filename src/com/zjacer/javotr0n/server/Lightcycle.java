@@ -18,22 +18,22 @@ public class Lightcycle {
         this.id = id;
         this.color = color;
         switch(id) {
-            case 1: // left top corner and right direction
+            case 2: // left top corner and right direction
                 trailX.add(0);
                 trailY.add(0);
                 direction = 0;
                 break;
-            case 2: // right bottom corner and left direction
+            case 3: // right bottom corner and left direction
                 trailX.add(Game.getGameBoardWidth()-1);
                 trailY.add(Game.getGameBoardHeight()-1);
                 direction = 2;
                 break;
-            case 3: // left bottom corner and right up direction
+            case 4: // left bottom corner and right up direction
                 trailX.add(0);
                 trailY.add(Game.getGameBoardHeight()-1);
                 direction = 1;
                 break;
-            case 4: // right top corner and down direction
+            case 5: // right top corner and down direction
                 trailX.add(Game.getGameBoardWidth()-1);
                 trailY.add(0);
                 direction = 3;
@@ -78,7 +78,7 @@ public class Lightcycle {
     }
     
     void setDirection(int i) {
-        direction = i;
+        this.direction = i;
     }
     
     void increaseTrailSize() {
